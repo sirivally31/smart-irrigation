@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -14,7 +14,10 @@ class SensorReadingCreate(BaseModel):
     def require_timezone(cls, value: datetime) -> datetime:
         if value.tzinfo is None or value.utcoffset() is None:
             raise ValueError("timestamp must include a timezone")
-        return value.astimezone(timezone.utc)
+        normalized = value.astimezone(timezone.utc)
+        if normalized > datetime.now(timezone.utc) + timedelta(minutes=5):
+            raise ValueError("timestamp cannot be in the future")
+        return normalized
 
 
 class SensorReadingResponse(SensorReadingCreate):

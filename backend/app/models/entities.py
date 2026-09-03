@@ -1,6 +1,6 @@
 from datetime import date, datetime, timezone
 
-from sqlalchemy import Date, DateTime, Float, ForeignKey, String, Text
+from sqlalchemy import Date, DateTime, Float, ForeignKey, JSON, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
@@ -26,6 +26,9 @@ class Field(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(120), nullable=False)
     location: Mapped[str | None] = mapped_column(String(255))
+    latitude: Mapped[float | None] = mapped_column(Float)
+    longitude: Mapped[float | None] = mapped_column(Float)
+    size_hectares: Mapped[float | None] = mapped_column(Float)
     farmer_id: Mapped[int] = mapped_column(ForeignKey("farmers.id", ondelete="CASCADE"), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now, nullable=False)
     farmer: Mapped[Farmer] = relationship(back_populates="fields")
@@ -39,6 +42,7 @@ class Crop(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(120), nullable=False)
     planting_date: Mapped[date | None] = mapped_column(Date)
+    growth_stage: Mapped[str | None] = mapped_column(String(120))
     field_id: Mapped[int] = mapped_column(ForeignKey("fields.id", ondelete="CASCADE"), nullable=False)
     field: Mapped[Field] = relationship(back_populates="crops")
 
@@ -49,6 +53,9 @@ class Sensor(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     serial_number: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
     name: Mapped[str | None] = mapped_column(String(120))
+    sensor_type: Mapped[str] = mapped_column(String(80), default="soil_moisture", nullable=False)
+    status: Mapped[str] = mapped_column(String(40), default="active", nullable=False)
+    installed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     field_id: Mapped[int] = mapped_column(ForeignKey("fields.id", ondelete="CASCADE"), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now, nullable=False)
     field: Mapped[Field] = relationship(back_populates="sensors")
@@ -57,6 +64,7 @@ class Sensor(Base):
 
 class SensorReading(Base):
     __tablename__ = "sensor_readings"
+    __table_args__ = (UniqueConstraint("sensor_id", "timestamp", name="uq_sensor_reading_timestamp"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
     sensor_id: Mapped[int] = mapped_column(ForeignKey("sensors.id", ondelete="CASCADE"), nullable=False)
@@ -75,6 +83,9 @@ class WeatherData(Base):
     recorded_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     temperature: Mapped[float | None] = mapped_column(Float)
     rainfall: Mapped[float | None] = mapped_column(Float)
+    humidity: Mapped[float | None] = mapped_column(Float)
+    rain_probability: Mapped[float | None] = mapped_column(Float)
+    forecast: Mapped[list | None] = mapped_column(JSON)
     source: Mapped[str | None] = mapped_column(String(120))
 
 
@@ -84,5 +95,6 @@ class IrrigationHistory(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     field_id: Mapped[int] = mapped_column(ForeignKey("fields.id", ondelete="CASCADE"), nullable=False)
     started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    action: Mapped[str] = mapped_column(String(80), default="manual", nullable=False)
     duration_minutes: Mapped[float] = mapped_column(Float, nullable=False)
     notes: Mapped[str | None] = mapped_column(Text)
