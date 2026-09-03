@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS farmers (id SERIAL PRIMARY KEY, name VARCHAR(120) NOT NULL, email VARCHAR(255) UNIQUE, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
+CREATE TABLE IF NOT EXISTS fields (id SERIAL PRIMARY KEY, name VARCHAR(120) NOT NULL, location VARCHAR(255), farmer_id INTEGER NOT NULL REFERENCES farmers(id) ON DELETE CASCADE, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
+CREATE TABLE IF NOT EXISTS crops (id SERIAL PRIMARY KEY, name VARCHAR(120) NOT NULL, planting_date DATE, field_id INTEGER NOT NULL REFERENCES fields(id) ON DELETE CASCADE);
+CREATE TABLE IF NOT EXISTS sensors (id SERIAL PRIMARY KEY, serial_number VARCHAR(120) UNIQUE NOT NULL, name VARCHAR(120), field_id INTEGER NOT NULL REFERENCES fields(id) ON DELETE CASCADE, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
+CREATE TABLE IF NOT EXISTS sensor_readings (id SERIAL PRIMARY KEY, sensor_id INTEGER NOT NULL REFERENCES sensors(id) ON DELETE CASCADE, field_id INTEGER NOT NULL REFERENCES fields(id) ON DELETE CASCADE, soil_moisture DOUBLE PRECISION NOT NULL CHECK (soil_moisture >= 0 AND soil_moisture <= 100), timestamp TIMESTAMPTZ NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
+CREATE TABLE IF NOT EXISTS weather_data (id SERIAL PRIMARY KEY, field_id INTEGER NOT NULL REFERENCES fields(id) ON DELETE CASCADE, recorded_at TIMESTAMPTZ NOT NULL, temperature DOUBLE PRECISION, rainfall DOUBLE PRECISION, source VARCHAR(120));
+CREATE TABLE IF NOT EXISTS irrigation_history (id SERIAL PRIMARY KEY, field_id INTEGER NOT NULL REFERENCES fields(id) ON DELETE CASCADE, started_at TIMESTAMPTZ NOT NULL, duration_minutes DOUBLE PRECISION NOT NULL, notes TEXT);
+
+INSERT INTO farmers (name, email) VALUES ('Demo Farmer', 'demo@irrigation.local') ON CONFLICT (email) DO NOTHING;
+INSERT INTO fields (name, location, farmer_id) SELECT 'Demo Field', 'Demo Farm', id FROM farmers WHERE email = 'demo@irrigation.local' ON CONFLICT DO NOTHING;
+INSERT INTO crops (name, planting_date, field_id) SELECT 'Demo Crop', '2026-08-01', id FROM fields WHERE name = 'Demo Field' AND NOT EXISTS (SELECT 1 FROM crops WHERE name = 'Demo Crop');
+INSERT INTO sensors (serial_number, name, field_id) SELECT 'DEMO-SENSOR-001', 'Demo Soil Sensor', id FROM fields WHERE name = 'Demo Field' ON CONFLICT (serial_number) DO NOTHING;

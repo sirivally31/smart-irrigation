@@ -1,0 +1,10 @@
+:root { font-family: Georgia, serif; color: #1e3328; background: #f4f1e8; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 760px; margin: 0 auto; padding: 12vh 24px; }
+.eyebrow { color: #b35c2e; font: 700 12px sans-serif; letter-spacing: 2px; }
+h1 { font-size: clamp(2.5rem, 7vw, 5rem); line-height: .95; max-width: 620px; margin: 18px 0; }
+.status { color: #b35c2e; font: 700 15px sans-serif; }
+section { margin-top: 64px; border-top: 1px solid #b8b8a9; padding-top: 20px; }
+li { padding: 12px 0; border-bottom: 1px solid #d0cdbf; font: 16px sans-serif; }
+small { color: #687467; margin-left: 8px; }
