@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "best_params": {
+    "classifier": {
+      "n_estimators": 180,
+      "max_depth": null
+    },
+    "regressor": {
+      "n_estimators": 180,
+      "max_depth": null
+    }
+  },
+  "lstm": "optional/skipped unless TensorFlow installed"
+}

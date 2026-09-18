@@ -1,0 +1,38 @@
+{
+  "rf_classifier": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "roc_auc": 1.0
+  },
+  "gb_classifier": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "roc_auc": 1.0
+  },
+  "rf_regressor": {
+    "rmse": 0.014714163972145262,
+    "mae": 0.0007486666666666834,
+    "r2": 0.9999975986399579
+  },
+  "gb_regressor": {
+    "rmse": 0.13945525247960433,
+    "mae": 0.06590433180117523,
+    "r2": 0.9997842971667685
+  },
+  "baseline_classifier": {
+    "accuracy": 0.92,
+    "precision": 0.92,
+    "recall": 1.0,
+    "f1": 0.9583333333333334,
+    "roc_auc": 0.5
+  },
+  "baseline_regressor": {
+    "rmse": 15.332869980929525,
+    "mae": 15.264738400000002,
+    "r2": -1.607552150089727
+  }
+}
