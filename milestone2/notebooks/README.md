@@ -1,0 +1,1 @@
+The executable EDA and feature engineering entry points are `src/eda/eda.py` and `src/features.py`. They are kept as scripts so the pipeline can run unattended; a notebook can import the same functions without duplicating logic.
