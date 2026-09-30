@@ -1,0 +1,20 @@
+{
+  "numeric": [
+    "soil_moisture_pct",
+    "temperature_c",
+    "humidity_pct",
+    "rainfall_mm",
+    "wind_speed_mps",
+    "solar_radiation_wm2",
+    "days_since_irrigation",
+    "soil_moisture_rolling_6h",
+    "soil_moisture_deficit",
+    "et0_proxy",
+    "rainfall_24h",
+    "cumulative_irrigation_7d",
+    "hour",
+    "day_of_year"
+  ],
+  "target_class": "irrigation_needed",
+  "target_reg": "water_quantity_liters"
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline — Smart Irrigation Assistant</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: #F5F7F2;
+      color: #1E293B;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    .card {
+      background: white;
+      padding: 32px 24px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      max-width: 440px;
+      width: 100%;
+      border: 1px solid #E8F5E9;
+    }
+    .icon {
+      font-size: 52px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      color: #1B4D3E;
+      font-size: 22px;
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+    .message-box {
+      margin: 16px 0;
+      padding: 12px;
+      background: #FBFBF7;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 14px;
+      border-left: 4px solid #2D7A4D;
+    }
+    .lang-title {
+      font-weight: bold;
+      color: #1B4D3E;
+      margin-bottom: 4px;
+    }
+    button {
+      background-color: #1B4D3E;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 16px;
+      width: 100%;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background-color: #2D7A4D;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">🌱</div>
+    <h1>You are Currently Offline</h1>
+    <p style="color: #64748B; font-size: 14px; margin-bottom: 20px;">
+      Live irrigation schedules and sensors require an internet connection.
+    </p>
+
+    <div class="message-box">
+      <div class="lang-title">English</div>
+      <div>Please check your mobile network or Wi-Fi. Cached field data remains accessible once reconnected.</div>
+    </div>
+
+    <div class="message-box">
+      <div class="lang-title">हिन्दी (Hindi)</div>
+      <div>आप अभी ऑफलाइन हैं। लाइव सिंचाई की जानकारी के लिए कृपया अपने इंटरनेट कनेक्शन की जांच करें।</div>
+    </div>
+
+    <div class="message-box">
+      <div class="lang-title">ಕನ್ನಡ (Kannada)</div>
+      <div>ನೀವು ಪ್ರಸ್ತುತ ಆಫ್‌ಲೈನ್‌ನಲ್ಲಿದ್ದೀರಿ. ಹೊಸ ನೀರಾವರಿ ಮಾಹಿತಿಗಾಗಿ ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕವನ್ನು ಪರಿಶೀಲಿಸಿ.</div>
+    </div>
+
+    <button onclick="window.location.reload()">Retry Connection / ಮರುಪ್ರಯತ್ನಿಸಿ</button>
+  </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "name": "Smart Irrigation Assistant",
+  "short_name": "SmartIrrigation",
+  "description": "Smart Irrigation Scheduling, Weather Alerts & Farmer Assistant",
+  "start_url": "/",
+  "id": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F5F7F2",
+  "theme_color": "#1B4D3E",
+  "categories": ["agriculture", "utilities", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
